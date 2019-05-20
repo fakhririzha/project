@@ -39,22 +39,16 @@ public class read extends javax.swing.JFrame {
 
         tabel1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Kode Barang", "Nama Barang", "Harga", "Stok"
+                "Kode Barang", "Nama Barang", "Harga", "Stok", "Unit"
             }
         ));
         jScrollPane1.setViewportView(tabel1);
-        if (tabel1.getColumnModel().getColumnCount() > 0) {
-            tabel1.getColumnModel().getColumn(0).setHeaderValue("Kode Barang");
-            tabel1.getColumnModel().getColumn(1).setHeaderValue("Nama Barang");
-            tabel1.getColumnModel().getColumn(2).setHeaderValue("Harga");
-            tabel1.getColumnModel().getColumn(3).setHeaderValue("Stok");
-        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,8 +122,28 @@ public class read extends javax.swing.JFrame {
     private void tabel(){
         
         javax.swing.table.DefaultTableModel tb = new javax.swing.table.DefaultTableModel();
-        
-        
+        tb.addColumn("Kode Barang");
+        tb.addColumn("Nama Barang");
+        tb.addColumn("Harga");
+        tb.addColumn("Stok");
+        tb.addColumn("Unit");
+        tabel1.setModel(tb);
+        try {
+            rs = stmt.executeQuery("SELECT * FROM barang");
+            while(rs.next()){
+                tb.addRow(new Object[]{
+                    rs.getString("kode_barang"),
+                    rs.getString("nama_barang"),
+                    rs.getString("harga"),
+                    rs.getString("stok"),
+                    rs.getString("unit")
+                });
+            }
+        } catch(SQLException e) {
+            
+        } finally {
+            
+        };
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
